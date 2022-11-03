@@ -84,14 +84,16 @@
                     <div class="col col-xs align-center" data-label="Status"><a href="#"
                             class="badge badge-updating">updating</a></div>
                 }
-
-                <div class="col col-xs align-center" data-label="">
+                @if(@item.Confirm == false) {
+                    <div class="col col-xs align-center" data-label="">
                     <a asp-action="DeleteBooking" asp-controller="User" asp-route-id=@item.IdBooking class="delete" data-toggle="modal">
                         <i class="icon material-icons" data-toggle="tooltip" title="Delete">
                             &#xE872;
                         </i>
                     </a>
                 </div>
+                }
+                
 
             </li>
         }

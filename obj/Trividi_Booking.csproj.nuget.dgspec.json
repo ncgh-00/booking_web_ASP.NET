@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\Trividi_Booking.csproj": {}
+    "d:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\Trividi_Booking.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\Trividi_Booking.csproj": {
+    "d:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\Trividi_Booking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\Trividi_Booking.csproj",
+        "projectUniqueName": "d:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\Trividi_Booking.csproj",
         "projectName": "Trividi_Booking",
-        "projectPath": "D:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\Trividi_Booking.csproj",
+        "projectPath": "d:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\Trividi_Booking.csproj",
         "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\obj\\",
+        "outputPath": "d:\\Documents\\1.FPT\\FA22\\PRN211\\Project\\Trividi_Booking\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
