@@ -1,0 +1,49 @@
+@model Trividi_Booking.Models.RoomDetail
+@{
+    ViewData["Title"] = "EditRoom";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Room - Trividi Booking</title>
+    <link rel="icon" type="image/x-icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="~/css/form-s.css">
+</head>
+<body>
+<div class="layout">
+    <div class="container">
+        <h3 class="heading">Edit Hotel</h3>
+
+        <form asp-action="EditRoom" asp-controller="Staff" class="form" method="post">
+            <input type="hidden" class="input-box" name="idroom" value="@Model.IdRoomDetails">
+            <input type="hidden" class="input-box" name="idhotel" value="@Model.IdHotel">
+            <div class="input">
+                <input type="text" class="input-box" placeholder="Name of room" name="name" value="@Model.Name">
+            </div>
+
+            <div class="input">
+                <textarea class="input-box" name="description" placeholder="Description" rows="2" value="">@Model.Description</textarea>
+            </div>
+            <div class="input">
+                <input type="text" class="input-box" title="Choose file" name="image" value="@Model.Image">
+            </div>
+
+            <div class="input">
+                <input type="number" min="1" class="input-box" placeholder="Cost" name="cost" value="@Model.Cost">
+            </div>
+
+            <div class="input">
+                <input type="number" min="0" class="input-box" placeholder="Discount" name="discount" value="@Model.Discount">
+            </div>
+
+            <input type="submit" value="Edit" class="btn">
+        </form>
+    </div>
+</div>
+</body>
+</html>

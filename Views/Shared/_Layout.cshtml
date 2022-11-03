@@ -1,0 +1,203 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Trividi_Booking</title>
+    <link rel="icon" type="image/x-icon" href="~/images/logo.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="~/css/style.css" rel="stylesheet" />
+    @await RenderSectionAsync("Styles", required: false)
+
+</head>
+
+<body>
+    <header>
+        <div id="menu-bar" class="fas fa-bars"></div>
+
+        <div class="logo-img">
+            <img src="~/images/logo.svg" alt="Khong hien">
+        </div>
+        <a href="#" class="logo"><span>T</span>rividi</a>
+        @if (HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == null)
+        {
+            <nav class="navbar">
+                <a asp-action="Index" asp-controller="Hotel">home</a>
+                @if (@ViewBag.page == "Home")
+                {
+                    <a href="#hotel">hotel</a>
+                    <a href="#city">city</a>
+                    <a href="#services">services</a>
+                }
+                else if (@ViewBag.page == "Booking")
+                {
+                    <a href="#hot-hotel">Hotel</a>
+                    <a href="#review">Room</a>
+                }
+            </nav>
+
+            <div class="icons"> 
+                <i class="fas fa-search" id="search-btn"></i>
+                <a asp-action="Login" asp-controller="Authentication">
+                    <i class="fas fa-user" id="login-btn"></i>
+                </a>
+            </div>
+        }
+
+
+        @if (HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == 3)
+        {
+            <nav class="navbar">
+                <a asp-action="Index" asp-controller="Hotel">home</a>
+
+                <a asp-action="Index" asp-controller="User">My account</a>
+                <a asp-action="HotelManagement" asp-controller="Admin">Dashboard</a>
+
+            </nav>
+            <div class="username">
+                <a href="">@HttpContextAccessor.HttpContext.Session.GetString("name")</a>
+            </div>
+
+            <div class="icons">
+                <i class="fas fa-search" id="search-btn"></i>
+                <a asp-action="Logout" asp-controller="Authentication"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        }
+
+        @if (HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == 2)
+        {
+            <nav class="navbar">
+                <a asp-action="Index" asp-controller="Hotel">home</a>
+
+                <a asp-action="Index" asp-controller="User">My account</a>
+                <a asp-action="Index" asp-controller="Staff" >My hotel</a>
+            </nav>
+
+            <div class="username">
+                <a href="">@HttpContextAccessor.HttpContext.Session.GetString("name")</a>
+            </div>
+
+            <div class="icons">
+
+                <i class="fas fa-search" id="search-btn"></i>
+
+                <a asp-action="Logout" asp-controller="Authentication"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        }
+
+        @if (HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == 1)
+        {
+            <nav class="navbar">
+                <a asp-action="Index" asp-controller="Hotel">home</a>
+                <a asp-action="Index" asp-controller="User">My account</a>
+
+            </nav>
+
+            <div class="username">
+                <a href="">@HttpContextAccessor.HttpContext.Session.GetString("name")</a>
+            </div>
+
+            <div class="icons">
+
+                <i class="fas fa-search" id="search-btn"></i>
+
+                <a asp-action="Logout" asp-controller="Authentication"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        }
+
+        <form asp-action="Index" asp-controller="Hotel" class="search-bar-container" method="post">
+            <div class="row">
+                <input type="text" id="search-bar-1" placeholder="search here..." name="search">
+                <div class="col">
+                    <select name="search_city">
+                        <option value="" selected>[Search City]</option>
+                        @{
+                            if (@ViewBag.city != null)
+                            {
+                                foreach (var c in ViewBag.city)
+                                {
+                                    <option value="@c.Name">@c.Name</option>
+                                }
+                            }
+
+                        }
+
+                    </select>
+                    <select name="search_category">
+                        <option value="" selected>[Search Category]</option>
+                        @{
+                            if (@ViewBag.category != null)
+                            {
+                                foreach (var c in ViewBag.category)
+                                {
+                                    <option value="@c.Name">@c.Name</option>
+                                }
+                            }
+                        }
+
+                    </select>
+
+                    <select name="star">
+                        <option value="" selected>[Number of stars]</option>
+                        <option value="1">1 star</option>
+                        <option value="2">2 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="5">5 stars</option>
+                    </select>
+                    <button class="search-btn" type="submit"><label for="search-bar-1"
+                            class="fas fa-search"></label></button>
+                </div>
+            </div>
+        </form>
+    </header>
+
+    @RenderBody()
+
+
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>about us</h3>
+                <p>welcome to A global icon of luxury and dicover new places with us, luxury awaits</p>
+            </div>
+            <div class="box">
+                <h3>Locations</h3>
+                <a href="Search?search-by-city=Da Lat">Da Lat</a>
+                <a href="Search?search-by-city=Da Nang">Da Nang</a>
+                <a href="Search?search-by-city=Ha Noi">Ha Noi</a>
+                <a href="Search?search-by-city=Ha Long">Ha Long</a>
+                <a href="Search?search-by-city=Vung Tau">Vung Tau</a>
+            </div>
+
+            <div class="box">
+                <h3>follow us</h3>
+                <a href="https://www.facebook.com/profile.php?id=100074870037080">facebook</a>
+                <a href="https://www.instagram.com/nqkhang.28/">instagram</a>
+                <a href="https://github.com/ncgh-00/booking-web.git">github</a>
+            </div>
+        </div>
+        <h1 class="credit"> created by <span>group 3</span> | enjoy your trip!! </h1>
+    </section>
+    <script>
+        function checkRequired(input) {
+            var text = input.value;
+            const great = document.getElementById("option-1")
+            const attr = document.createAttribute("required");
+            if (text != "") {
+                great.setAttributeNode(attr);
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

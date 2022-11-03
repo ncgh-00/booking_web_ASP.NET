@@ -1,0 +1,99 @@
+@model Trividi_Booking.Models.Hotel
+@{
+    ViewData["Title"] = "EditHotel";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Hotel - Trividi Booking</title>
+    <link rel="icon" type="image/x-icon" href="~/images/logo.svg">
+    <link rel="stylesheet" href="~/css/form-l.css">
+</head>
+
+<body>
+    <div class="layout">
+        <div class="container">
+            <h3 class="heading">Edit Hotel</h3>
+            <form asp-action="EditHotel" asp-controller="Staff" class="form" method="post">
+
+                <input type="hidden" class="input-box" name="idhotel" value=@Model.IdHotel>
+                <div class="input">
+                    <input type="text" class="input-box" placeholder="Hotel Name" name="name" value="@Model.Name">
+                </div>
+
+                <div class="input">
+                    <textarea class="input-box" name="description" placeholder="Description"
+                        rows="2">@Model.Description</textarea>
+                </div>
+
+                <div class="input">
+                    <select name="cate" id="category" class="input-box">
+                        <option value="" selected>Select category</option>
+                        @foreach (var item in @ViewBag.Cate)
+                        {
+                            @if (@item.IdCategory == @Model.IdCategory)
+                            {
+                                <option value="@item.IdCategory" selected>@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.IdCategory">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="input">
+                    <input type="text" class="input-box" name="image" value="@Model.Image">
+                </div>
+
+                <div class="input">
+                    <input type="tel" class="input-box" placeholder="Phone" name="phone" value="@Model.Phone">
+                </div>
+
+                <div class="input">
+                    <input type="text" class="input-box" placeholder="Address" name="address" value="@Model.Address">
+                </div>
+
+                <div class="input">
+                    <input type="number" min="1" max="5" class="input-box" placeholder="Number of star" name="numOfStar"
+                        value="@Model.NumberOfStars">
+                </div>
+
+                <div class="input">
+                    <select name="city"  class="input-box">
+                        <option value="" selected>Select City</option>
+                        @foreach (var item in @ViewBag.City)
+                        {
+                            @if (@item.IdCity == @Model.IdCity)
+                            {
+                                <option value="@item.IdCity" selected>@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.IdCity">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                @if (@ViewBag.Err != null)
+                {
+                    <div class="field-text-error">
+                        <p>@ViewBag.Err</p>
+                    </div>
+                }
+                <input type="submit" value="Edit" class="btn">
+
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

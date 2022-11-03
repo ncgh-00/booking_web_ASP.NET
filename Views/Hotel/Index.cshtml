@@ -1,0 +1,184 @@
+@model IEnumerable<Trividi_Booking.Models.HotelDetail>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="home" id="home">
+    <div class="content">
+        <h3>welcome to A global icon of luxury</h3>
+        <p>dicover new places with us, luxury awaits</p>
+        <a href="#" class="btn">discover more</a>
+    </div>
+
+    <div class="controls">
+        <span class="vid-btn active" data-src="/images/vid-2.mp4"></span>
+        <span class="vid-btn" data-src="/images/vid-1.mp4"></span>
+        <span class="vid-btn" data-src="/images/vid-3.mp4"></span>
+        <span class="vid-btn" data-src="/images/vid-4.mp4"></span>
+        <span class="vid-btn" data-src="/images/vid-5.mp4"></span>
+    </div>
+
+    <div class="video-container">
+        <video src="/images/vid-2.mp4" id="video-slider" loop autoplay muted></video>
+    </div>
+
+</section>
+
+
+
+<!-- Hotel section starts -->
+
+<section class="hotel" id="hotel">
+
+    <h1 class="heading">
+        <span>H</span>
+        <span>o</span>
+        <span>t</span>
+        <span>e</span>
+        <span>l</span>
+    </h1>
+
+
+    @* <h1 class="heading">
+    <span>S</span>
+    <span>e</span>
+    <span>a</span>
+    <span>r</span>
+    <span>c</span>
+    <span>h</span>
+    <span class="space"></span>
+    <span>R</span>
+    <span>e</span>
+    <span>s</span>
+    <span>u</span>
+    <span>l</span>
+    <span>t</span>
+    <span>s</span>
+    </h1>*@
+
+    <div class="box-container">
+        @foreach (var h in Model)
+        {
+            <div class="box">
+                <img src="/@h.Image" alt="@h.Name">
+                <div class="content">
+                    <h3><i class="fas fa-map-marker-alt"></i> @h.City </h3>
+                    <p>@h.Name</p>
+                    <div class="stars">
+                        @for (int i = 1; i <= @h.NumberOfStars; ++i)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+
+                    </div>
+                    <a asp-controller="Booking" asp-action="Index" asp-route-id=@h.ID class="btn">See More</a>
+                    @* @Html.ActionLink("See More", "Index", "Booking", new {  idhotel=@h.ID  }, "class=btn"); *@
+                </div>
+            </div>
+        }
+
+
+    </div>
+
+</section>
+
+
+<!-- packages section ends -->
+<!-- city section starts -->
+
+<section class="city" id="city">
+    <h1 class="heading">
+        <span>c</span>
+        <span>i</span>
+        <span>t</span>
+        <span>y</span>
+    </h1>
+
+    <div class="box-container">
+        @foreach (var c in ViewBag.city)
+            {
+                    <div class="box">
+                        <img src="/@c.Image" alt="@c.Name">
+                        <div class="content">
+                            <h3>@c.Name</h3>
+
+                            <a href="" class="btn">see more</a>
+                        </div>
+                    </div>
+            }
+        
+    </div>
+</section>
+
+<!-- city section ends -->
+<!-- services section starts -->
+
+<section class="services" id="services">
+    <h1 class="heading">
+        <span>s</span>
+        <span>e</span>
+        <span>r</span>
+        <span>v</span>
+        <span>i</span>
+        <span>c</span>
+        <span>e</span>
+        <span>s</span>
+    </h1>
+
+    <div class="box-container">
+        <div class="box">
+            <i class="fas fa-hotel"></i>
+            <h3>affordable hotels</h3>
+            <p>
+                Coming to Trividi Joint Stock Company, customers will always find hotels with affordable prices but receive the best service.
+                Additionally, we frequently give discounts on our website so that clients always get the best deals.
+            </p>
+        </div>
+        <div class="box">
+            <i class="fas fa-utensils"></i>
+            <i class="fa-light fa-cart-shopping-fast"></i>
+            <h3>fast to booking</h3>
+            <p>The Trividi website always strives to make using it simple so that users can simply search hotel information and book hotels.</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-bullhorn"></i>
+            <h3>safty guide</h3>
+            <p>Users' security is always of the utmost importance, so they can be entirely confident while submitting their information on the Trividi website.</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-globe-asia"></i>
+            <h3>around the country</h3>
+            <p>Our service is spread across the country with many hotels everywhere, so coming to Trividi booking website, customers will always find the right hotel for their needs.</p>
+        </div>
+        <div class="box">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <h3>easy to find</h3>
+            <p>The map tool on the Trividi booking website makes it simple for customers to look up hotels and entertainment venues in the area.</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-hiking"></i>
+            <h3>adventures</h3>
+            <p>Find out more about the hotel you wish to stay at with the assistance of actual images and reviews from prior guests to make your decision easier.</p>
+        </div>
+    </div>
+</section>
+
+<!-- services section ends -->
+<!-- brand section -->
+
+<section class="brand-container">
+    <div class="swiper mySwiper brand-slider">
+        <div class="swiper-wrapper wrapper">
+            <div class="swiper-slide"><img src="/images/1.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="/images/2.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="/images/3.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="/images/4.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="/images/5.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="/images/6.jpg" alt=""></div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/script.js"></script>
+}

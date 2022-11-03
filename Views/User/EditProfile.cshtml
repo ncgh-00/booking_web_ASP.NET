@@ -1,0 +1,55 @@
+@model Account
+@{
+    ViewData["Title"] = "EditProfile";
+    Layout = null;
+}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Page - Trividi_Booking</title>
+        <link rel="icon" type="image/x-icon" href="~/images/logo.svg">
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+        <link href="~/css/form-s.css" rel="stylesheet" />
+        
+    </head>
+    <body>
+        <div class="layout">
+        <div class="container">
+            <h3 class="heading">Edit User</h3>
+            <form asp-action="EditProfile" asp-controller="User" class="form" method="post">
+            <div class="input">
+                <input type="text" class="input-box" placeholder="Full name (Optional)" name="name" value=@Model.FullName>
+            </div>
+
+            <div class="input">
+                <input type="tel" class="input-box" placeholder="Phone number (Optional)" name="phone" value="@Model.Phone">
+            </div>
+
+            <div class="input">
+                <input type="email" class="input-box" placeholder="Email (Optional)" name="email" value="@Model.Email">
+            </div>
+
+            <div class="input-pas">
+                <input type="password" class="input-box password" placeholder="Password (Optional)" name="pass">
+            </div>
+
+            <div class="input-pas">
+                <input type="password" class="input-box password" placeholder="Repeat password" name="repass" >
+                <i class='bx bx-hide eye-icon'></i>
+            </div>
+            @if (ViewBag.Error != null) {
+                    <div class="field-text-error">
+                        <p>@ViewBag.Error</p>
+                    </div>
+            }
+           
+            <input type="submit" value="Edit" class="btn">
+        </form>
+    </div>
+    </div>
+    <script src="~/js/form.js"></script>
+    </body>
+</html>

@@ -1,0 +1,195 @@
+@model Trividi_Booking.Models.HotelDetail
+@{
+    ViewData["Title"] = "My Hotel Page";
+}
+
+@section Styles {
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/myaccount.css">
+}
+
+
+<div class="container margin-top margin-bottom">
+    <section class="hot-hotel " id="managehotel">
+        <h1 class="heading">
+            <span>M</span>
+            <span>a</span>
+            <span>n</span>
+            <span>a</span>
+            <span>g</span>
+            <span>e</span>
+            <span class="space"></span>
+            <span>H</span>
+            <span>o</span>
+            <span>t</span>
+            <span>e</span>
+            <span>l</span>
+        </h1>
+        <div class="add-room"><a class="btn" asp-action="Statistics" asp-controller="Staff">View Statistic</a></div>
+        <div class="row">
+            <div class="img">
+                <img src="~/@Model.Image" alt="@Model.Name">
+            </div>
+
+            <div class="hot-hotel-content">
+                <div class="hotel-info">
+                    <h2 style=" margin: 0;">@Model.Name</h2>
+
+                    <div class="stars">
+                        @for (int i = 1; i <= @Model.NumberOfStars; i++)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                    </div>
+
+                    <h3 class="hotel-desc">@Model.Description</h3>
+                    <h3>
+                        <i class="fa-solid fa-phone"></i>
+                        Phone: <a href="tel:+@Model.Phone"><span>@Model.Phone</span></a>
+                    </h3>
+                    <h3>
+                        <i class="fa-sharp fa-solid fa-location-dot"></i>
+                        Address: <span>@Model.Address</span>
+                    </h3>
+                    @if (@Model.Status == true)
+                    {
+                        <div class="align-center" data-label="Status"><a title="Change status" asp-controller="Staff" asp-action="Activate" asp-route-id=@Model.ID
+                            class="badge-hotel badge-confirm">active</a></div>
+                    }
+                    else
+                    {
+                        <div class=" align-center" data-label="Status"><a title="Change status" asp-controller="Staff" asp-action="Activate" asp-route-id=@Model.ID
+                            class="badge-hotel badge-updating">inactive</a></div>
+                    }
+                    <a asp-action="EditHotel" asp-controller="Staff" asp-route-idhotel=@Model.ID class="btn">Edit Hotel</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <h1 class="heading" id="manageroom">
+        <span>M</span>
+        <span>a</span>
+        <span>n</span>
+        <span>a</span>
+        <span>g</span>
+        <span>e</span>
+        <span class="space"></span>
+        <span>R</span>
+        <span>O</span>
+        <span>O</span>
+        <span>M</span>
+    </h1>
+    <div class="add-room"><a class="btn" asp-action="AddRoom" asp-controller="Staff" asp-route-idhotel="@Model.ID">Add room</a></div>
+    <ul class="responsive-table ">
+        <li class="table-header">
+            <div class="col col-l">Name of room</div>
+            <div class="col col-xl">Description</div>
+            <div class="col col-m">Image</div>
+            <div class="col col-s">Cost</div>
+            <div class="col col-s">Discount</div>
+            <div class="col col-xs">Status</div>
+            <div class="col col-xs">Action</div>
+
+        </li>
+        @foreach (var item in ViewBag.ListRoom)
+        {
+            <li class="table-row">
+                <div class="col col-l align-center" data-label="Name of room">@item.Name</div>
+                <div class="col col-xl" data-label="Description">@item.Description</div>
+                <div class="col col-m align-center" data-label="Image">@item.Image</div>
+                <div class="col col-s align-center" data-label="Cost">@item.Cost</div>
+                <div class="col col-s align-center" data-label="Discount">@item.Discount</div>
+
+                @if (@item.Status == true)
+                {
+                    <div class="col col-xs align-center" data-label="Status"><a title="Change status" asp-controller="Staff" asp-action="ActivateRoom" asp-route-id=@item.IdRoomDetails
+                    class="badge badge-confirm">active</a></div>
+                }
+                else
+                {
+                    <div class="col col-xs align-center" data-label="Status"><a title="Change status" asp-controller="Staff" asp-action="ActivateRoom" asp-route-id=@item.IdRoomDetails
+                    class="badge badge-updating">inactive</a></div>
+                }
+                <div class="col col-xs align-center">
+                    <a class="edit" asp-action="EditRoom" asp-controller="Staff" asp-route-idroom=@item.IdRoomDetails><i class="icon fa-solid fa-pen-to-square"></i></a>
+                </div>
+            </li>
+        }
+    </ul>
+    <h1 class="heading" id="managebooking">
+        <span>M</span>
+        <span>a</span>
+        <span>n</span>
+        <span>a</span>
+        <span>g</span>
+        <span>e</span>
+        <span class="space"></span>
+        <span>B</span>
+        <span>o</span>
+        <span>o</span>
+        <span>k</span>
+        <span>i</span>
+        <span>n</span>
+        <span>g</span>
+    </h1>
+    <ul class="responsive-table">
+        <li class="table-header">
+            <div class="col col-s">User name</div>
+            <div class="col col-s">Phone</div>
+
+            <div class="col col-xl">Location</div>
+            <div class="col col-l">Room name</div>
+            <div class="col col-xs">Amount</div>
+            <div class="col col-m">Day Start</div>
+            <div class="col col-m">Day End</div>
+            <div class="col col-s">Total Cost</div>
+            <div class="col col-xs">Status</div>
+        </li>
+
+        @foreach (var i in ViewBag.Bookings)
+        {
+            <li class="table-row">
+                @if (@i.Confirm == true)
+                {
+                    <div class="col col-s align-center" data-label="username">@i.FullName</div>
+                    <div class="col col-s align-center" data-label="userphone">@i.Phone</div>
+                }
+                else
+                {
+                    <div class="col col-s align-center" data-label="username"><i
+                    class="icon fa-sharp fa-solid fa-eye-slash"></i></div>
+                    <div class="col col-s align-center" data-label="userphone"><i
+                    class="icon fa-sharp fa-solid fa-eye-slash"></i></div>
+                }
+                <div class="col col-xl align-center" data-label="hotelname">@i.Hotel</div>
+                <div class="col col-l align-center" data-label="roomname">@i.RoomDetails</div>
+                <div class="col col-xs align-center" data-label="amount">@i.NumberOfRooms</div>
+                <div class="col col-m align-center" data-label="daystart">@i.DateStart</div>
+                <div class="col col-m align-center" data-label="dayend">@i.DateEnd</div>
+                <div class="col col-s align-center" data-label="totalcost">@i.TotalCosts</div>
+                @if (@i.Confirm == true)
+                {
+                    <div class="col col-xs align-center" data-label="Status">
+                        <a title="Change status" href=""
+                    class="badge badge-confirm">Confirm</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col col-xs align-center" data-label="Status">
+                        <a title="Change status" asp-controller="Staff" asp-action="Confirm" asp-route-id=@i.IdBooking
+                    class="badge badge-updating">Updating</a>
+                    </div>
+                }
+            </li>
+        }
+    </ul>
+</div>
+
+@section Scripts {
+    <script src="~/js/header.js"></script>
+}

@@ -1,0 +1,119 @@
+@model IEnumerable<Trividi_Booking.Models.HotelDetail>
+@{
+    ViewData["Title"] = "Hotel Management";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+}
+<div class="menu">
+    <ul class="menu__bar">
+        <a class="menu__item selected" href="#">
+            <li>Hotel Management</li>
+        </a>
+        <a class="menu__item" asp-action="AccountManagement" asp-controller="Admin">
+            <li>Account Management</li>
+        </a>
+        <a class="menu__item" asp-action="Statistics" asp-controller="Admin">
+            <li>statistic</li>
+        </a>
+    </ul>
+</div>
+
+<div class="content">
+        <div class="nav">
+            <button class="btn show-choose-account"><i class="add-icon fa-solid fa-circle-plus"></i>Add Hotel</button>
+        </div>
+
+        <table id="example" class="display" style="">
+        <thead>
+            <tr>
+                <th class="align-center">Hotel's Name</th>
+                <th class="align-center">Description</th>
+                <th class="align-center">Category</th>
+                <th class="align-center">Phone</th>
+                <th class="align-center">Address</th>
+                <th class="align-center">Number Of Stars</th>
+                <th class="align-center">City</th>
+                <th class="align-center">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td class="align-center">@item.Category</td>
+                <td>@item.Phone</td>
+                <td>@item.Address</td>
+                <td class="align-center">@item.NumberOfStars</td>
+                <td>@item.City</td>
+                <td>
+                    @{
+                        if (item.Status == true) 
+                        {
+                            <a asp-action="ActivateHotel" asp-controller="Admin" asp-route-id=@item.ID class="badge badge-active" title="Change status">Active</a>
+                        } else {
+                            <a asp-action="ActivateHotel" asp-controller="Admin" asp-route-id=@item.ID class="badge badge-inactive" title="Change status">Inactive</a>
+                        }
+                    }
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+
+<div class="noti close-btn">
+    <div class="noti-container">
+        <div class="noti-heading">
+            <h3 class="heading">Choose Staff For Hotel</h3>
+            <div class="close-btn"><i class="fas fa-times"></i></div>
+        </div>
+        <form asp-action="AddHotel" asp-controller="Admin" class="noti-body align-center" method="post">
+            <div class="row">
+                <select name="uid" class="select" required>
+                    <option value="" selected >[Select account]</option>
+                    @foreach (var item in @ViewBag.Acc)
+                    {
+                        
+                        <option value="@item.Uid">@item.Username</option>
+                    }
+                </select>
+                <a class="btn" asp-action="AddHotelWithNewStaff" asp-controller="Admin" >New Account</a>
+            </div>
+
+            <input type="submit" class="btn close-btn" value="Finish">
+        </form>
+    </div>
+</div>
+
+@if (@ViewBag.Show!=null)
+{
+    <div class="notify open close-btn">
+    <div class="noti-container">
+        <div class="noti-heading">
+            <h3 class="heading">New Account</h3>
+            <div class="close-btn"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="noti-body">
+            <span class="message mt-12"> New account has been created: </span>
+            <p><span class="label mt-12">Username:</span>@ViewBag.Username</p>
+            <p><span class="label">Password: </span>@ViewBag.Password</p>
+        </div>
+    </div>
+</div>
+}
+
+
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+    <script src="~/js/choose_account.js"></script>
+}

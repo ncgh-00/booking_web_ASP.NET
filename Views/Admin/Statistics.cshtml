@@ -1,0 +1,136 @@
+@model Statistic
+@{
+    ViewData["Title"] = "Statistics";
+}
+
+@section Styles {
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/dashboard.css">
+</script>
+}
+
+<div class="menu">
+    <ul class="menu__bar">
+        <a class="menu__item" asp-action="HotelManagement" asp-controller="Admin">
+            <li>Hotel Management</li>
+        </a>
+        <a class="menu__item" asp-action="AccountManagement" asp-controller="Admin">
+            <li>Account Management</li>
+        </a>
+        <a class="menu__item selected" href="#">
+            <li>statistics</li>
+        </a>
+    </ul>
+</div>
+
+<div class="card-container">
+    <div class="card card-orange">
+        <div class="card__heading">
+            <div class="card__content">
+                <h3 class="card__number">@Model.sumTotal</h3>
+                <p class="card__details">all profits</p>
+            </div>
+            <div class="card__icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+        </div>
+        <div class="line"></div>
+        <div class="card__footer">
+            <i class="fa-regular fa-clock"></i>
+            <p class="card_time">update: @ViewBag.time</p>
+        </div>
+    </div>
+
+    <div class="card card-green">
+        <div class="card__heading">
+            <div class="card__content">
+                <h3 class="card__number">@Model.numberBooking</h3>
+                <p class="card__details">all bookings</p>
+            </div>
+            <div class="card__icon"><i class="fa-solid fa-rectangle-list"></i></div>
+        </div>
+        <div class="line"></div>
+        <div class="card__footer">
+            <i class="fa-regular fa-clock"></i>
+            <p class="card_time">update: @ViewBag.time</p>
+        </div>
+    </div>
+
+    <div class="card card-red">
+        <div class="card__heading">
+            <div class="card__content">
+                <h3 class="card__number">$@Model.sumTotalToday</h3>
+                <p class="card__details">Day's profits</p>
+            </div>
+            <div class="card__icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+        </div>
+        <div class="line"></div>
+        <div class="card__footer">
+            <i class="fa-regular fa-clock"></i>
+            <p class="card_time"> update: @ViewBag.time</p>
+        </div>
+    </div>
+
+    <div class="card card-blue">
+        <div class="card__heading">
+            <div class="card__content">
+                <h3 class="card__number">@Model.numberBookingToday</h3>
+                <p class="card__details">Day's bookings</p>
+            </div>
+            <div class="card__icon"><i class="fa-solid fa-rectangle-list"></i></div>
+        </div>
+        <div class="line"></div>
+        <div class="card__footer">
+            <i class="fa-regular fa-clock"></i>
+            <p class="card_time"> update: @ViewBag.time</p>
+        </div>
+    </div>
+</div>
+
+<form asp-action="Statistics" asp-controller="Admin" class="form-search" method="post">
+    <input type="date" class="search-bar" name="timeS" required>
+    <input id="year" type="date" class="search-bar" name="timeE" required>
+    <input type="submit" value="View" class="btn">
+</form>
+
+@if (@ViewBag.Err != null)
+{
+    <div class="field-text-error">
+        <p>@ViewBag.Err</p>
+    </div>
+}
+
+
+
+<div class="content" style="margin: 3rem 15% 40rem;">
+    <table id="example" class="display" style="">
+        <thead>
+            <tr>
+                <th class="align-center">Time</th>
+                <th class="align-center">Number of Books</th>
+                <th class="align-center">Dollar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.list)
+            {
+                <tr>
+                    <td class="align-center">@item.date</td>
+                    <td class="align-center">@item.numberBook</td>
+                    <td class="align-center">@item.total</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+}

@@ -1,0 +1,126 @@
+@model IEnumerable<Trividi_Booking.Models.BookingDetails>
+@{
+    ViewData["Title"] = "My Account Page";
+}
+
+@section Styles {
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="~/css/myaccount.css">
+}
+
+<div class="container">
+    <div class="info-container">
+        <div class="title">Order Information
+            <h3>Update your info and find out how it's used.</h3>
+        </div>
+        <div class="user-detail">
+            <div class="infor">
+                <span class="details">Fullname: <p>@ViewBag.Account.FullName</p></span>
+            </div>
+            <div class="infor">
+                <span class="details">Username: <p>@ViewBag.Account.Username</p></span>
+            </div>
+            <div class="infor">
+                <span class="details">Email: <p>@if(ViewBag.Account.Email==null){Output.Write("You should add your email!");} else{@ViewBag.Account.Email}</p>
+                </span>
+            </div>
+            <div class="infor">
+                <span class="details">Phone: <p>@if(ViewBag.Account.Phone==null){Output.Write("You should add your phone!");} else{@ViewBag.Account.Phone}</p></span>
+            </div>
+            <div>
+                <a asp-action="EditProfile" asp-controller="User" class="btn">Edit Profile</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- table -->
+
+<div id="yourbooking" class="container margin-bottom">
+    <h1 class="heading">
+        <span>M</span>
+        <span>y</span>
+        <span class="space"></span>
+        <span>B</span>
+        <span>o</span>
+        <span>o</span>
+        <span>k</span>
+        <span>i</span>
+        <span>n</span>
+        <span>g</span>
+    </h1>
+    <ul class="responsive-table">
+        <li class="table-header">
+            <div class="col col-l">Location</div>
+            <div class="col col-l">Room name</div>
+            <div class="col col-xs">Amount</div>
+            <div class="col col-m">Day Start</div>
+            <div class="col col-m">Day End</div>
+            <div class="col col-s">Total Cost</div>
+            <div class="col col-xs">Status</div>
+            <div class="col col-xs">Action</div>
+        </li>
+
+        @foreach (var item in Model)
+        {
+            <li class="table-row">
+                <div class="col col-l" data-label="Location">@item.Hotel</div>
+                <div class="col col-l align-center" data-label="Room name">@item.RoomDetails</div>
+                <div class="col col-xs align-center" data-label="Amount"> @item.NumberOfRooms</div>
+                <div class="col col-m align-center" data-label="Day Start">@item.DateStart</div>
+                <div class="col col-m align-center" data-label="Day End">@item.DateEnd</div>
+                <div class="col col-s align-center" data-label="Total Cost">@item.TotalCosts</div>
+                @if (@item.Confirm == true)
+                {
+                    <div class="col col-xs align-center" data-label="Status"><a href="#" class="badge badge-confirm">confirm</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col col-xs align-center" data-label="Status"><a href="#"
+                            class="badge badge-updating">updating</a></div>
+                }
+
+                <div class="col col-xs align-center" data-label="">
+                    <a asp-action="DeleteBooking" asp-controller="User" asp-route-id=@item.IdBooking class="delete" data-toggle="modal">
+                        <i class="icon material-icons" data-toggle="tooltip" title="Delete">
+                            &#xE872;
+                        </i>
+                    </a>
+                </div>
+
+            </li>
+        }
+            
+    </ul>
+</div>
+@if(ViewBag.Show != null){
+<div class="noti open close-btn">
+    <div class=" noti-container">
+        <div class="noti-heading">
+            <h3 class="heading">Welcome to Trividi website booking</h3>
+            <div class="close-btn"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="noti-body">
+            <p class="message mt-12">Your booking has been successful!</p>
+            <span class="message mt-12"> Your account has been created: </span>
+            <p><span class="label mt-12">Username:</span>@ViewBag.Username</p>
+            <p><span class="label">Password: </span>@ViewBag.Password</p>
+        </div>
+        <div class="edit-btn">
+            <a asp-action="EditProfile" asp-controller="User" class="btn">Edit Profile</a>
+        </div>
+    </div>
+</div>
+}
+
+
+@section Scripts {
+<script src="~/js/noti.js"></script>
+
+<script src="~/js/header.js"></script>
+}
