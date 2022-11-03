@@ -1,53 +1,62 @@
-    @model Trividi_Booking.Models.Account
+@model Trividi_Booking.Models.Account
 @{
     ViewData["Title"] = "Login Page";
     Layout = null;
 }
 
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login Page - Trividi_Booking</title>
-        <link rel="icon" type="image/x-icon" href="~/images/logo.svg">
-        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>>
-        <link href="~/css/form-s.css" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="layout">
-            <div class="container">
-                <h3 class="heading">Login</h3>
-                <form asp-action="Login" class="form" method="post">
-                    <div class="input">
-                        <input type="text" class="input-box" placeholder="User name" asp-for="Username" >
-                    </div>
-                    <div class="input-pas">
-                        <input type="password" class="input-box password" placeholder="Password" asp-for="HashPassword" >
-                        <i class='bx bx-hide eye-icon'></i>
-                    </div>
+<html lang="en">
 
-                    @if (ViewBag.Error!=null)
-                    {
-                        <div class="field-text-error">
-                            <p>@ViewBag.Error</p>
-                        </div>
-                    }
-                    
-                        
-                    <div class="form-link">
-                        <a asp-action="GetPassword" asp-controller="Authentication" class="forgot-pas-link">Forgot password? </a>
-                    </div>
-                    <input type="submit" value="Login" class="btn">
-                </form>
-                <div class="form-link">
-                    <span>
-                        Don't have an account? <a asp-action="Register" asp-controller="Authentication" class="signup-link">Signup </a>
-                    </span>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page - Trividi_Booking</title>
+    <link rel="icon" type="image/x-icon" href="~/images/logo.svg">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/css/form-s.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="layout">
+        <div class="container">
+            <a asp-action="Index" asp-controller="Hotel" class="backhome"><i class="fa-solid fa-arrow-left"></i></a>
+            <h3 class="heading">Login</h3>
+            <form asp-action="Login" class="form" method="post">
+                <div class="input">
+                    <input type="text" class="input-box" placeholder="User name" asp-for="Username">
                 </div>
+                <div class="input-pas">
+                    <input type="password" class="input-box password" placeholder="Password" asp-for="HashPassword">
+                    <i class='bx bx-hide eye-icon'></i>
+                </div>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="field-text-error">
+                        <p>@ViewBag.Error</p>
+                    </div>
+                }
+
+
+                <div class="form-link">
+                    <a asp-action="GetPassword" asp-controller="Authentication" class="forgot-pas-link">Forgot password?
+                    </a>
+                </div>
+                <input type="submit" value="Login" class="btn">
+            </form>
+            <div class="form-link">
+                <span>
+                    Don't have an account? <a asp-action="Register" asp-controller="Authentication"
+                        class="signup-link">Signup </a>
+                </span>
             </div>
         </div>
-        <script src="~/js/form.js"></script>
-    </body>
-    </html>
+    </div>
+    <script src="~/js/form.js"></script>
+</body>
+
+</html>

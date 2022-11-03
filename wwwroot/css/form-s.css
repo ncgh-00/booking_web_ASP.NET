@@ -34,6 +34,7 @@
     border-radius: 7px;
     text-align: center;
     padding: 32px 28px;
+    position: relative;
 }
 
 .heading {
@@ -42,7 +43,15 @@
 
 .form {
     margin-top: 20px;
+}
 
+.backhome {
+    font-size: 1.4rem;
+    color: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0.8rem 1rem 0.5rem;
 }
 
 
